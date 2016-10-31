@@ -1,10 +1,14 @@
 // XXX: a lot of janky mocking here, not sure it's a great idea.
 
-ServiceConfiguration.configurations.insert({
-  service: 'google',
-  client_id: 'foo',
-  client_secret: 'bar'
-});
+ServiceConfiguration.configurations.upsert(
+  { service: 'google' },
+  {
+    $set: {
+      client_id: 'foo',
+      client_secret: 'bar',
+    },
+  }
+);
 
 // mock out http
 HTTP.nextResult = '';
@@ -19,6 +23,8 @@ HTTP.call = function(method, url, params, callback) {
     expires_in: 200
   }};
 }
+
+const googleApi = new GoogleApi();
 
 // async version
 var callAync = function(method, url, params, callback) {
@@ -68,7 +74,7 @@ if (Meteor.isServer) {
     var userId = Meteor.call('mockUser', test.id, 'good');
     
     HTTP.nextResult = 'foo';
-    var result = GoogleApi.get('/foo/bar', {user: Meteor.users.findOne(userId)});
+    var result = googleApi.get('/foo/bar', {user: Meteor.users.findOne(userId)});
 
     test.equal(result, 'foo');
   });
@@ -77,7 +83,7 @@ if (Meteor.isServer) {
     var userId = Meteor.call('mockUser', test.id, 'bad');
 
     HTTP.nextResult = 'foo';
-    var result = GoogleApi.get('/foo/bar', {user: Meteor.users.findOne(userId)});
+    var result = googleApi.get('/foo/bar', {user: Meteor.users.findOne(userId)});
 
     test.equal(result, 'foo');
   });
@@ -95,7 +101,7 @@ if (Meteor.isServer) {
     Meteor.call('mockUser', test.id, 'good', function(error, userId) {
       loginAs(userId, function() {
         HTTP.nextResult = 'foo';
-        GoogleApi.get('/foo/bar', {}).then(function(result) {
+        googleApi.get('/foo/bar', {}).then(function(result) {
           console.log(result)
           test.equal(result, 'foo');
           done();
@@ -110,7 +116,7 @@ if (Meteor.isServer) {
     Meteor.call('mockUser', test.id, 'bad', function(error, userId) {
       loginAs(userId, function() {
         HTTP.nextResult = 'foo';
-        GoogleApi.get('/foo/bar', {}).then(function(result) {
+        googleApi.get('/foo/bar', {}).then(function(result) {
           test.equal(result, 'foo');
           done();
         });

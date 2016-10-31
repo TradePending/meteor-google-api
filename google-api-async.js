@@ -1,11 +1,13 @@
 // kill logs
 var Log = function () {}
 
-GoogleApi = {
-  // host component, shouldn't change
-  _host: 'https://www.googleapis.com',
+GoogleApi = class {
 
-  _callAndRefresh: function(method, path, options, callback) {
+  constructor(host) {
+    this._host = host || 'https://www.googleapis.com';
+  }
+
+  _callAndRefresh(method, path, options, callback) {
     var self = this;
     options = options || {};
 
@@ -31,10 +33,10 @@ GoogleApi = {
           callback(error, result);
         }
     }, 'Google Api callAndRefresh'));
-  },
+  }
 
   // call a GAPI Meteor.http function if the accessToken is good
-  _call: function(method, path, options, callback) {
+  _call(method, path, options, callback) {
     Log('GoogleApi._call, path:' + path);
 
     // copy existing options to modify
@@ -54,9 +56,9 @@ GoogleApi = {
       callback(new Meteor.Error(403, "Auth token not found." +
         "Connect your google account"));
     }
-  },
+  }
 
-  _refresh: function(user, callback) {
+  _refresh(user, callback) {
     Log('GoogleApi._refresh');
 
     Meteor.call('exchangeRefreshToken', user && user._id, function(error, result) {
@@ -66,9 +68,9 @@ GoogleApi = {
 }
 
 // setup HTTP verbs
-httpVerbs = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
+const httpVerbs = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
 _.each(httpVerbs, function(verb) {
-  GoogleApi[verb.toLowerCase()] = wrapAsync(function(path, options, callback) {
+  GoogleApi.prototype[verb.toLowerCase()] = wrapAsync(function(path, options, callback) {
     if (_.isFunction(options)) {
       callback = options;
       options = {};

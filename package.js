@@ -1,17 +1,19 @@
 Package.describe({
-  name: 'percolate:google-api',
+  name: 'npvn:google-api',
   summary: "A Meteor library to interact with Google's API",
   version: '1.0.3',
   git: 'https://github.com/percolatestudio/meteor-google-api'
 });
 
 Package.on_use(function (api, where) {
+  const packages = ['http', 'livedata', 'google', 'accounts-base', 'underscore', 'ecmascript'];
   if (api.versionsFrom) {
     api.versionsFrom('0.9.0');
-    api.use(['http', 'livedata', 'google', 'mrt:q@1.0.1', 'accounts-base', 'underscore']);
+    packages.push('mrt:q@1.0.1');
   } else {
-    api.use(['http', 'livedata', 'google', 'q', 'accounts-base', 'underscore']);
+    packages.push('q');
   }
+  api.use(packages);
 
   api.add_files(['utils.js', 'google-api-async.js'], ['client', 'server']);
   api.add_files(['google-api-methods.js'], ['server']);
@@ -21,7 +23,7 @@ Package.on_use(function (api, where) {
 
 Package.on_test(function (api) {
   api.use([
-    'percolate:google-api',
+    'npvn:google-api',
     'tinytest',
     'http',
     'accounts-base',
