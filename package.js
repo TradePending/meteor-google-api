@@ -8,7 +8,7 @@ Package.describe({
 Package.on_use(function (api, where) {
   const packages = ['http', 'livedata', 'google-oauth', 'accounts-base', 'underscore', 'ecmascript'];
   if (api.versionsFrom) {
-    api.versionsFrom('0.9.0');
+    api.versionsFrom('1.4.3');
     packages.push('mrt:q@1.0.1');
   } else {
     packages.push('q');
@@ -23,7 +23,7 @@ Package.on_use(function (api, where) {
 
 Package.on_test(function (api) {
   api.use([
-    'npvn:google-api',
+    'verso:google-api',
     'tinytest',
     'http',
     'accounts-base',
