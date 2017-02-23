@@ -1,8 +1,8 @@
 Package.describe({
   name: 'npvn:google-api',
   summary: "A Meteor library to interact with Google's API",
-  version: '1.0.4',
-  git: 'https://github.com/percolatestudio/meteor-google-api'
+  version: '1.0.5',
+  git: 'https://github.com/versolearning/meteor-google-api'
 });
 
 Package.on_use(function (api, where) {
