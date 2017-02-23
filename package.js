@@ -1,12 +1,12 @@
 Package.describe({
   name: 'npvn:google-api',
   summary: "A Meteor library to interact with Google's API",
-  version: '1.0.3',
+  version: '1.0.4',
   git: 'https://github.com/percolatestudio/meteor-google-api'
 });
 
 Package.on_use(function (api, where) {
-  const packages = ['http', 'livedata', 'google', 'accounts-base', 'underscore', 'ecmascript'];
+  const packages = ['http', 'livedata', 'google-oauth', 'accounts-base', 'underscore', 'ecmascript'];
   if (api.versionsFrom) {
     api.versionsFrom('0.9.0');
     packages.push('mrt:q@1.0.1');
