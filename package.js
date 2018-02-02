@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'verso:google-api',
+  name: 'TradePending:google-api',
   summary: "A Meteor library to interact with Google's API",
   version: '1.0.6',
   git: 'https://github.com/TradePending/meteor-google-api'
