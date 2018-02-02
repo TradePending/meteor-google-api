@@ -1,8 +1,8 @@
 Package.describe({
   name: 'verso:google-api',
   summary: "A Meteor library to interact with Google's API",
-  version: '1.0.5',
-  git: 'https://github.com/versolearning/meteor-google-api'
+  version: '1.0.6',
+  git: 'https://github.com/TradePending/meteor-google-api'
 });
 
 Package.on_use(function (api, where) {
