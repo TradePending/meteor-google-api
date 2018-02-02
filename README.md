@@ -1,6 +1,8 @@
 Google API
 ----------
 
+Updated to support Meteor 1.6 (removal of deprecated method Meteor.http)
+
 A Meteor library to interact with Google's API.
 
 Works with accounts-google to automatically handle refresh/access token changes and give you a simple API to make calls.
@@ -8,7 +10,7 @@ Works with accounts-google to automatically handle refresh/access token changes 
 # Install
 
 ```
-meteor add percolate:google-api
+meteor add TradePending:google-api
 ```
 
 # Usage
